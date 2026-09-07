@@ -1,124 +1,115 @@
 {% extends "base.html" %} {% block title %} {{ action }} Product · Adelaide
 Artisan Bakery {% endblock %} {% block content %}
 
-<section class="form-section">
-  <div class="form-card">
-    <p class="eyebrow">PRODUCT CATALOGUE</p>
-
-    <h1>{{ action }} product</h1>
-
-    <p class="muted">
-      Enter the product information below. Required fields are marked with an
-      asterisk.
-    </p>
-
-    <form method="post">
-      <div class="field">
-        <label for="name">
-          Product name
-          <span aria-hidden="true">*</span>
-        </label>
-
-        <input
-          id="name"
-          name="name"
-          type="text"
-          maxlength="120"
-          required
-          autocomplete="off"
-          value="{{ product.name if product else '' }}"
-        />
-      </div>
-
-      <div class="field">
-        <label for="category">
-          Category
-          <span aria-hidden="true">*</span>
-        </label>
-
-        <select id="category" name="category" required>
-          <option value="">Select a category</option>
-
-          {% for category in [ "Bread", "Pastry", "Cake", "Savoury", "Other" ]
-          %}
-
-          <option
-            value="{{ category }}"
-            {%
-            if
-            product
-            and
-            product.category=""
-            ="category"
-            %}
-            selected
-            {%
-            endif
-            %}
-          >
-            {{ category }}
-          </option>
-
-          {% endfor %}
-        </select>
-      </div>
-
-      <div class="field">
-        <label for="description">
-          Description
-          <span aria-hidden="true">*</span>
-        </label>
-
-        <textarea id="description" name="description" maxlength="2000" required>
-{{ product.description if product else '' }}</textarea
-        >
-      </div>
-
-      <div class="field">
-        <label for="price">
-          Price in AUD
-          <span aria-hidden="true">*</span>
-        </label>
-
-        <input
-          id="price"
-          name="price"
-          type="number"
-          min="0"
-          step="0.01"
-          required
-          value="{{ product.price if product else '' }}"
-        />
-      </div>
-
-      <div class="checkbox-field">
-        <input
-          id="available"
-          name="available"
-          type="checkbox"
-          {%
-          if
-          not
-          product
-          or
-          product.available
-          %}
-          checked
-          {%
-          endif
-          %}
-        />
-
-        <label for="available"> Product is currently available </label>
-      </div>
-
-      <div class="form-actions">
-        <a href="/products" class="button secondary"> Cancel </a>
-
-        <button type="submit" class="button">{{ action }} product</button>
-      </div>
-    </form>
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">PRODUCT MANAGEMENT</p>
+      <h1>{{ action }} Product</h1>
+      <p>Add and manage products in the bakery catalogue.</p>
+    </div>
   </div>
+
+  {% if errors %}
+  <div class="alert alert-error" role="alert" aria-live="assertive">
+    <ul>
+      {% for error in errors %}
+      <li>{{ error }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <form
+    method="post"
+    action="{% if action == 'Update' %}/products/{{ product.id }}/edit{% else %}/products/new{% endif %}"
+    class="form-card"
+  >
+    <div class="form-group">
+      <label for="name">Product name</label>
+
+      <input
+        type="text"
+        id="name"
+        name="name"
+        value="{{ product.name if product else '' }}"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="category">Category</label>
+
+      <select id="category" name="category" required>
+        <option value="">Select a category</option>
+
+        {% if product and product.category == "Bread" %}
+        <option value="Bread" selected>Bread</option>
+        {% else %}
+        <option value="Bread">Bread</option>
+        {% endif %} {% if product and product.category == "Pastry" %}
+        <option value="Pastry" selected>Pastry</option>
+        {% else %}
+        <option value="Pastry">Pastry</option>
+        {% endif %} {% if product and product.category == "Cake" %}
+        <option value="Cake" selected>Cake</option>
+        {% else %}
+        <option value="Cake">Cake</option>
+        {% endif %} {% if product and product.category == "Savoury" %}
+        <option value="Savoury" selected>Savoury</option>
+        {% else %}
+        <option value="Savoury">Savoury</option>
+        {% endif %}
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description</label>
+
+      <textarea id="description" name="description" rows="5" required>
+{{ product.description if product else '' }}</textarea
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="price">Price</label>
+
+      <input
+        type="number"
+        id="price"
+        name="price"
+        value="{{ product.price if product else '' }}"
+        min="0"
+        step="0.01"
+        required
+      />
+    </div>
+
+    <div class="form-group checkbox-group">
+      <input
+        type="checkbox"
+        id="available"
+        name="available"
+        {%
+        if
+        not
+        product
+        or
+        product.available
+        %}checked{%
+        endif
+        %}
+      />
+
+      <label for="available"> Product is available </label>
+    </div>
+
+    <div class="form-actions">
+      <a href="/products" class="button secondary"> Cancel </a>
+
+      <button type="submit" class="button primary">{{ action }} Product</button>
+    </div>
+  </form>
 </section>
 
 {% endblock %}
