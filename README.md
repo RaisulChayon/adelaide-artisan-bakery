@@ -6,19 +6,19 @@ This README is written for running, testing and demonstrating the application lo
 
 ## 1. Technology Stack
 
-| Technology | Purpose |
-|---|---|
-| Python 3.12.x | Backend programming language |
-| FastAPI | Web framework and application routes |
-| Uvicorn | Local ASGI server |
-| Jinja2 | Server-side HTML templates |
-| SQLAlchemy | ORM and database access |
-| SQLite | Local persistent database |
-| HTML5 | Page structure |
-| CSS3 | Responsive styling |
-| Pytest | Automated testing |
-| HTTPX | Test client dependency |
-| python-dotenv | Environment configuration |
+| Technology    | Purpose                              |
+| ------------- | ------------------------------------ |
+| Python 3.12.x | Backend programming language         |
+| FastAPI       | Web framework and application routes |
+| Uvicorn       | Local ASGI server                    |
+| Jinja2        | Server-side HTML templates           |
+| SQLAlchemy    | ORM and database access              |
+| SQLite        | Local persistent database            |
+| HTML5         | Page structure                       |
+| CSS3          | Responsive styling                   |
+| Pytest        | Automated testing                    |
+| HTTPX         | Test client dependency               |
+| python-dotenv | Environment configuration            |
 
 ## 2. Required Python Version
 
@@ -1373,5 +1373,9 @@ bakery.db
 __pycache__/
 .pytest_cache/
 ```
+
+## 41. Final deployed live URL
+
+Live link: https://adelaide-artisan-bakery-prod.onrender.com/
 
 The repository should contain the source code, tests, requirements, configuration example and README, while generated/local environment files remain excluded.
