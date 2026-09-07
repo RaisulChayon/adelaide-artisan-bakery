@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block title %} Home · Adelaide Artisan Bakery {%
+endblock %} {% block content %}
+
+<section class="hero">
+  <div class="hero-content">
+    <p class="eyebrow">LOCAL · ARTISAN · FRESH</p>
+
+    <h1>Good bread. Good pastries. Good days.</h1>
+
+    <p class="hero-text">
+      Small-batch baking made with simple ingredients and plenty of care in
+      Adelaide.
+    </p>
+
+    <a href="#catalogue" class="button"> Explore our catalogue </a>
+  </div>
+</section>
+
+<section id="catalogue" class="section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">TODAY'S SELECTION</p>
+
+      <h2>Fresh from the oven</h2>
+    </div>
+
+    <a href="/enquiry" class="text-link"> Ask about an order → </a>
+  </div>
+
+  <div class="product-grid">
+    {% for product in products %}
+
+    <article class="product-card">
+      <span class="pill"> {{ product.category }} </span>
+
+      <h3>{{ product.name }}</h3>
+
+      <p>{{ product.description }}</p>
+
+      <div class="price">${{ "%.2f"|format(product.price) }}</div>
+    </article>
+
+    {% else %}
+
+    <p>No products are currently available.</p>
+
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

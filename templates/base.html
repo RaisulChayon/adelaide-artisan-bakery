@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Adelaide Artisan Bakery - fresh bread, pastries and cakes."
+    />
+    <title>{% block title %}Adelaide Artisan Bakery{% endblock %}</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}" />
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="container navigation">
+        <a class="brand" href="/" aria-label="Adelaide Artisan Bakery home">
+          Adelaide Artisan Bakery
+        </a>
+
+        <nav aria-label="Main navigation">
+          <a href="/">Home</a>
+          <a href="/products">Products</a>
+          <a href="/enquiry">Enquiry</a>
+          <a href="/enquiries">Enquiries</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" class="container">
+      {% if message %}
+      <div class="alert success" role="status" aria-live="polite">
+        {{ message }}
+      </div>
+      {% endif %} {% if request.query_params.get("success") %}
+      <div class="alert success" role="status" aria-live="polite">
+        Your enquiry has been received. Thank you for contacting us.
+      </div>
+      {% endif %} {% if errors %}
+      <div class="alert error" role="alert" aria-live="assertive" tabindex="-1">
+        <strong>Please correct the following:</strong>
+
+        <ul>
+          {% for error in errors %}
+          <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %} {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>Adelaide Artisan Bakery · Freshly baked, locally made.</p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title %} {{ title }} · Adelaide Artisan
+Bakery {% endblock %} {% block content %}
+
+<section class="error-page">
+  <p class="eyebrow">REQUEST ERROR</p>
+
+  <h1>{{ title }}</h1>
+
+  <p>{{ message }}</p>
+
+  <a href="/" class="button"> Return home </a>
+</section>
+
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends "base.html" %} {% block title %} Products · Adelaide Artisan Bakery
+{% endblock %} {% block content %}
+
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">CATALOGUE MANAGEMENT</p>
+
+      <h1>Products</h1>
+    </div>
+
+    <a href="/products/new" class="button"> Add product </a>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <caption class="sr-only">
+        Bakery product catalogue
+      </caption>
+
+      <thead>
+        <tr>
+          <th scope="col">Product</th>
+          <th scope="col">Category</th>
+          <th scope="col">Price</th>
+          <th scope="col">Status</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for product in products %}
+
+        <tr>
+          <td>
+            <strong> {{ product.name }} </strong>
+
+            <span class="table-description"> {{ product.description }} </span>
+          </td>
+
+          <td>{{ product.category }}</td>
+
+          <td>${{ "%.2f"|format(product.price) }}</td>
+
+          <td>
+            {% if product.available %}
+
+            <span class="status available"> Available </span>
+
+            {% else %}
+
+            <span class="status unavailable"> Unavailable </span>
+
+            {% endif %}
+          </td>
+
+          <td>
+            <div class="actions">
+              <a
+                href="/products/{{ product.id }}/edit"
+                class="button small secondary"
+              >
+                Edit
+              </a>
+
+              <form method="post" action="/products/{{ product.id }}/delete">
+                <button
+                  type="submit"
+                  class="button small danger"
+                  onclick="return confirm('Delete this product?');"
+                >
+                  Delete
+                </button>
+              </form>
+            </div>
+          </td>
+        </tr>
+
+        {% else %}
+
+        <tr>
+          <td colspan="5">No products have been added yet.</td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+{% endblock %}

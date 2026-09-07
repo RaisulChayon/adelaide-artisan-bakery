@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title %} Enquiries · Adelaide Artisan Bakery
+{% endblock %} {% block content %}
+
+<section class="section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">CUSTOMER MESSAGES</p>
+
+      <h1>Enquiries</h1>
+    </div>
+  </div>
+
+  <div class="enquiry-grid">
+    {% for enquiry in enquiries %}
+
+    <article class="enquiry-card">
+      <span class="pill">
+        {{ enquiry.created_at.strftime("%d %b %Y, %H:%M") }}
+      </span>
+
+      <h2>{{ enquiry.name }}</h2>
+
+      <p>
+        <a href="mailto:{{ enquiry.email }}"> {{ enquiry.email }} </a>
+      </p>
+
+      <p>{{ enquiry.message }}</p>
+    </article>
+
+    {% else %}
+
+    <p>No enquiries have been received yet.</p>
+
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}
